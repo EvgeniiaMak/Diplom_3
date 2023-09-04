@@ -26,18 +26,15 @@ public abstract class AbstractTest {
             ChromeOptions options = new ChromeOptions();
             options.setBinary(System.getProperty("YaBrowserLocation"));
             driver = new ChromeDriver(options);
-            System.out.println("YANDEX!!");
         } else if ("firefox".equals(System.getProperty("browser"))) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             driver = new FirefoxDriver(options);
-            System.out.println("Firefox!!");
         } else {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver(options);
-            System.out.println("Chrome");
         }
     }
 

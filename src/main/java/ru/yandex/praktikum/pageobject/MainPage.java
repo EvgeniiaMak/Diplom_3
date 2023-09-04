@@ -2,6 +2,7 @@ package ru.yandex.praktikum.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static ru.yandex.praktikum.utils.TestConstants.TEST_LOGIN;
@@ -12,6 +13,7 @@ public class MainPage {
     private final By mainPageTitle = By.className("text_type_main-large");
     private final By personalAccountButton = By.xpath(".//p[text()='Личный Кабинет']");
     private final By loginButton = By.className("button_button__33qZ0");
+    private final By constructorTabPanel = By.className("tab_tab__1SPyG");
     private final By bunsButton = By.xpath(".//span[text()='Булки']/parent::div");
     private final By saucesButton = By.xpath(".//span[text()='Соусы']/parent::div");
     private final By fillingsButton = By.xpath(".//span[text()='Начинки']/parent::div");
@@ -38,29 +40,38 @@ public class MainPage {
 
     public void clickToBunsButton() {
         driver.findElement(bunsButton).click();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.attributeContains(bunsButton, "class", "tab_tab_type_current__2BEPc"));
     }
 
     public void clickToSaucesButton() {
         driver.findElement(saucesButton).click();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.attributeContains(saucesButton, "class", "tab_tab_type_current__2BEPc"));
     }
 
     public void clickToFillingsButton() {
         driver.findElement(fillingsButton).click();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.attributeContains(fillingsButton, "class", "tab_tab_type_current__2BEPc"));
+
     }
 
-    public boolean bunsDisplayed() {
-        new WebDriverWait(driver, 3).until(driver -> (driver.findElement(bunsChapterTitle).isEnabled()));
-        return driver.findElement(bunsChapterTitle).isDisplayed();
+    public int bunsChapterTitleLocationY() {
+        return driver.findElement(bunsChapterTitle).getLocation().getY();
     }
 
-    public boolean saucesDisplayed() {
-        new WebDriverWait(driver, 3).until(driver -> (driver.findElement(saucesChapterTitle).isEnabled()));
-        return driver.findElement(saucesChapterTitle).isDisplayed();
+    public int saucesChapterTitleLocationY() {
+        return driver.findElement(saucesChapterTitle).getLocation().getY();
     }
 
-    public boolean fillingsDisplayed() {
-        new WebDriverWait(driver, 3).until(driver -> (driver.findElement(fillingsChapterTitle).isEnabled()));
-        return driver.findElement(fillingsChapterTitle).isDisplayed();
+    public int fillingsChapterTitleLocationY() {
+        return driver.findElement(fillingsChapterTitle).getLocation().getY();
+    }
+
+    public int getConstructorPanelBottomLocation() {
+        return driver.findElement(constructorTabPanel).getLocation().getY()
+                + driver.findElement(constructorTabPanel).getSize().getHeight();
     }
 
     public void login() {

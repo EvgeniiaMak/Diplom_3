@@ -3,12 +3,12 @@ package ru.yandex.praktikum;
 import org.junit.Test;
 import ru.yandex.praktikum.pageobject.MainPage;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class ConstructorTest extends AbstractTest {
 
     @Test
-    public void goToBunsTest() {
+    public void goToBunsTest() throws InterruptedException {
         driver.get(QA_STELLARBURGERS_URL);
 
         MainPage mainPage = new MainPage(driver);
@@ -16,30 +16,39 @@ public class ConstructorTest extends AbstractTest {
         mainPage.clickToSaucesButton();
         mainPage.clickToBunsButton();
 
-        boolean isEnabledSauces = mainPage.bunsDisplayed();
-        assertTrue("Ошибка при переходе к разделу Булки", isEnabledSauces);
+        Thread.sleep(1000);
+
+        int constructorPanelBottomLocation = mainPage.getConstructorPanelBottomLocation();
+        int fillingsTitleLocation = mainPage.bunsChapterTitleLocationY();
+        assertEquals("Ошибка при переходе к разделу Булки", fillingsTitleLocation, constructorPanelBottomLocation);
     }
 
     @Test
-    public void goToSaucesTest() {
+    public void goToSaucesTest() throws InterruptedException {
         driver.get(QA_STELLARBURGERS_URL);
 
         MainPage mainPage = new MainPage(driver);
         mainPage.clickToSaucesButton();
 
-        boolean isEnableSaucesChapter = mainPage.saucesDisplayed();
-        assertTrue("Ошибка при переходе к разделу Соусы", isEnableSaucesChapter);
+        Thread.sleep(1000);
+
+        int constructorPanelBottomLocation = mainPage.getConstructorPanelBottomLocation();
+        int fillingsTitleLocation = mainPage.saucesChapterTitleLocationY();
+        assertEquals("Ошибка при переходе к разделу Соусы", fillingsTitleLocation, constructorPanelBottomLocation);
     }
 
     @Test
-    public void goToFillingsTest() {
+    public void goToFillingsTest() throws InterruptedException {
         driver.get(QA_STELLARBURGERS_URL);
 
         MainPage mainPage = new MainPage(driver);
         mainPage.clickToFillingsButton();
 
-        boolean isEnabledFillings = mainPage.fillingsDisplayed();
-        assertTrue("Ошибка при переходе к разделу Начинки", isEnabledFillings);
+        Thread.sleep(1000);
+
+        int constructorPanelBottomLocation = mainPage.getConstructorPanelBottomLocation();
+        int fillingsTitleLocation = mainPage.fillingsChapterTitleLocationY();
+        assertEquals("Ошибка при переходе к разделу Начинки", fillingsTitleLocation, constructorPanelBottomLocation);
     }
 
 }
